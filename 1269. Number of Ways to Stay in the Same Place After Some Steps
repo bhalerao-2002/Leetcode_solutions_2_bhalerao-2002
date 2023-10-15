@@ -1,0 +1,37 @@
+class Solution {
+public:
+int totalsize;
+long long MOD=pow(10, 9) + 7;
+vector<vector<int>> dp;
+    int helper(int i, int steps)
+    {
+        //Thanks to bhalerao-2002
+        if(steps==0)
+        {
+            if(i==0)
+            return 1;
+            else return 0;
+        }
+
+        if(dp[i][steps]!=-1)
+        return dp[i][steps];
+
+        long long res=0;
+        if(i>=0 and i<totalsize)
+        res=helper(i, steps-1)%MOD;
+        if(i-1>=0)
+        res+=helper(i-1, steps-1)%MOD;
+        if(i+1<totalsize)
+        res+=helper(i+1, steps-1)%MOD;
+
+        return dp[i][steps]=(res)%MOD;
+    }
+    int numWays(int steps, int arrLen) {
+        totalsize=arrLen;
+        dp.resize(2*steps+2);
+        for(auto &i: dp)
+            i.resize(steps+2, -1);
+    
+       return (int)helper(0, steps);
+    }
+};

@@ -1,0 +1,21 @@
+class Solution {
+ public:
+    //Thanks to Bhalerao-2002
+  bool validateBinaryTreeNodes(int n, vector<int>& leftChild,
+                               vector<int>& rightChild) {
+    vector<bool> vis(n, false);
+    function<bool(int)> dfs = [&](auto idx) -> bool {
+      if (idx == -1) return true;
+      if (vis[idx]) return false;
+      vis[idx] = true;
+      return dfs(leftChild[idx]) && dfs(rightChild[idx]);
+    };
+    unordered_set<int> cands;
+    for (int i = 0; i < n; i++) cands.insert(i);
+    for (int v : leftChild) cands.erase(v);
+    for (int v : rightChild) cands.erase(v);
+    if (cands.size() != 1) return false;
+    if (!dfs(*cands.begin())) return false;
+    return none_of(vis.begin(), vis.end(), [](bool v) {return !v;});
+  }
+};

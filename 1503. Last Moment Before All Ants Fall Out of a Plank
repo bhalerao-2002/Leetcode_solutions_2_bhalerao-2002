@@ -1,0 +1,17 @@
+class Solution {
+public:
+//Thanks to Bhalerao-2002
+    int getLastMoment(int n, vector<int>& left, vector<int>& right) {
+        int t = 0;
+        //We will ignore that ants meet at point and change their directions, we will straightly will consider that the greatest element of the given vector(i.e., left or right) will be the last ant to fall. So our intution is to find max element among both.
+        //This is the loop for finding max from left arr
+        for(int i= 0; i<left.size(); i++){
+            t = max(t, left[i]/*index of the left is the unit time required to fall*/);
+        }
+        //Now, this is for finding max from right(also compared max of left arr)
+        for(int i = 0; i<right.size(); i++){
+            t = max(t, n-right[i])/*size-index of right is the unit time required to fall*/;
+        }
+        return t;
+    }
+};

@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int getWinner(vector<int>& arr, int k) {
+            int n=arr.size();
+            //If Max Element of array is reached at index 0 so from that point it will will everytime, as it is greatest. So firstly we will find maximum.
+            int maxiElem = *max_element(arr.begin(), arr.end());
+            
+            //If k is greater than size of array, then at some time definitely maxElem will came to index 0.
+            if(k >= n){
+                return maxiElem;
+            }
+            //Assume first element as winner
+            int winner = arr[0];
+            int win = 0;
+            
+            for(int i = 1; i<n; i++){
+                if(arr[i]<winner){
+                    win++;
+                }else {
+                    winner = arr[i];
+                    win = 1;
+                }
+                if(win == k || winner == maxiElem)
+                    return winner;
+            }
+        
+        return winner;
+    }
+};

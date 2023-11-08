@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool isReachableAtTime(int sx, int sy, int fx, int fy, int t) {
+        //Thanks to bhalerao-2002
+        int xdifference = abs(sx-fx), ydifference = abs(sy-fy);
+
+        //Corner Condition: If we have starting and ending position same and time to reach is only t =1, it is practically not Possible.
+        if(xdifference == 0 && ydifference == 0 && t==1){
+            return false;
+        }
+
+        // Now, -----------Common Part------------------ Extra Part
+        // ---------------------|---------------------------|
+        return (min(xdifference, ydifference) + abs(xdifference-ydifference))<= t; 
+    }
+};

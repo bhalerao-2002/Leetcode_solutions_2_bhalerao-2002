@@ -1,0 +1,39 @@
+class Solution {
+public:
+//Thanks to Bhalerao-2002
+    bool search(vector<int>& nums, int target) {
+        int n = nums.size();
+        int l = 0, h = n-1;
+        while(l<=h){
+            int m = l + (h-l)/2;
+            // we found the target return true
+            if(nums[m]==target) return true;
+            //if there are duplicate then this is edge case
+            if(nums[l] == nums[m] && nums[m]==nums[h]){
+                l++;
+                h--;
+                continue;
+            }
+            if(nums[l]<=nums[m]){//means left half is sorted
+                if(nums[l]<=target && target <= nums[m]){
+                    // means the target is in sorted part so we eliminate the right 
+                    //half
+                    h = m-1;
+                }
+                else{
+                    l = m+1;
+                }
+            }
+            else{//means right half is sorted, because one half must be sorted
+                if(nums[m]<=target && target <= nums[h]){
+                    l = m+1;
+                }
+                else{
+                    h = m-1;
+                }
+            }
+            
+        }
+        return false;
+    }
+};

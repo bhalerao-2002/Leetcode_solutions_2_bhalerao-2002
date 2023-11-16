@@ -1,0 +1,46 @@
+class Solution {
+public:
+
+//Thanks to Bhalerao-2002
+//Brute Force :
+//TC O(n)
+//SC: O(n)
+    string findDifferentBinaryString(vector<string>& nums) {
+        unordered_set<int> st;
+
+        for(string &ch: nums){
+            st.insert(stoi(ch, 0, 2));
+        }
+
+        int n = nums.size();
+
+        string result = "";
+
+        for(int i = 0; i<=n ; i++){ //O(n)
+            if(st.find(i) == st.end()){
+                result = bitset<16>(i).to_string(); //O(n) to convert bitset to string
+                return result.substr(16-n, n);
+            }
+        }
+
+        return "";
+
+
+    }
+};
+
+//Optimal Approch 
+// TC: O(N)
+//SC: O(1)
+
+class Solution {
+public:
+    string findDifferentBinaryString(vector<string>& nums) {
+        string result;
+        for(int i = 0; i<nums.size(); i++){
+            char ch = nums[i][i];
+            result += (ch == '0') ? "1":"0"; 
+        }
+        return result;
+    }
+};

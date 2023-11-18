@@ -1,0 +1,50 @@
+class Solution {
+public:
+
+    int bsearch(int target_idx, int k, vector<int>&nums, vector<long>&ps ){
+        int target = nums[target_idx];
+        int l = 0, h = target_idx;
+        int best_idx = target_idx;
+        while(l<=h){
+            int mid = l+(h-l)/2;
+            
+            long count = (target_idx - mid +1) ;
+
+            long windowSum = (target*count);
+
+            long ogSum = ps[target_idx] - ps[mid] + nums[mid];
+
+            int output = windowSum - ogSum;
+
+            if(output > k){
+                l = mid+1;
+            }
+            else{
+                best_idx = mid;
+                h = mid-1;
+            }
+        }
+        return (target_idx - best_idx + 1);
+
+    }
+
+    int maxFrequency(vector<int>& nums, int k){
+        ios::sync_with_stdio(false);
+        cin.tie(0);
+        cout.tie(0);
+        int n = nums.size();
+        sort(begin(nums), end(nums));
+        vector<long>ps(n);
+        ps[0]=nums[0];
+        for(int i=1; i<n; i++){
+            ps[i] = ps[i-1]+nums[i];
+        }
+
+        int result=0;
+
+        for(int target_idx = 0; target_idx < n; target_idx++){
+            result =  max(result, bsearch(target_idx, k, nums, ps));
+        }
+        return result;
+    }
+};

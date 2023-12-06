@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int totalMoney(int n) {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
+        cout.tie(0);
+        if(n<8){
+            return ((n*(n+1))/2);
+        }
+        int sumw = 0, sumr = 0, terms = n/7, rem = n%7;
+        sumw = terms*(28+(28 + (terms- 1)*7)) / 2;
+        sumr = rem*((terms+1)+((terms+1) + (rem-1)))/2;
+        return sumw + sumr;
+    }
+    
+};
